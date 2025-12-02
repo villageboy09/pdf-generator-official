@@ -201,10 +201,6 @@ export default function App() {
               src="https://kiosk.cropsync.in/logo_v.jpeg"
               style={styles.logo}
             />
-            <div>
-              <div style={styles.brandName}>Crop Sync</div>
-              <div style={{ fontSize: "7px", color: "#7f8c8d" }}>Smart Agriculture</div>
-            </div>
           </div>
           <div style={styles.headerRight}>
             <div>{dateIST}</div>
