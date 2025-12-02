@@ -155,10 +155,10 @@ export default function App() {
             src="https://kiosk.cropsync.in/logo_v.jpeg"
             style={styles.logo}
           />
-          <div style={styles.companyName}>Carbon Mint</div>
+          <div style={styles.companyName}>Crop Sync</div>
           <div style={styles.companyTag}>Smart Agricultural Solutions</div>
           <div style={{ fontSize: "9px" }}>
-            www.carbonmint.in | Tel: +91- 73309 03729
+            www.cropsync.in | Tel: +91- 91828 67605
           </div>
         </div>
 
@@ -231,7 +231,7 @@ export default function App() {
         <div style={styles.footer}>
           <div>Receipt ID: {receipt_id}</div>
           <div>Date: {dateIST} IST</div>
-          <div>Thank You for Using CarbonMint</div>
+          <div>Thank You for Using CropSync Kiosk</div>
         </div>
       </div>
     </>
