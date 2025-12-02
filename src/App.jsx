@@ -6,14 +6,14 @@ const PrintStyles = () => (
     {`
       /* 1. Set the physical paper size */
       @page {
-        size: 80mm auto;
+        size: 80mm 120mm;
         margin: 0mm;
       }
 
       /* 2. Reset html/body to allow full width usage */
       html, body {
         width: 80mm !important;
-        height: auto !important;
+        height: 120mm !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: white;
@@ -32,14 +32,15 @@ const PrintStyles = () => (
       }
 
       #receipt-container {
-        position: relative; /* Changed from fixed to relative to flow naturally */
+        position: fixed; /* Fixed puts it relative to the window/paper */
         left: 0;
         top: 0;
         width: 80mm !important;
+        height: 120mm !important;
         margin: 0 !important;
-        padding: 5px !important; /* Your internal padding */
-        box-sizing: border-box; /* Ensures padding doesn't expand width beyond 80mm */
-        overflow: visible;
+        padding: 4mm !important;
+        box-sizing: border-box;
+        overflow: hidden;
       }
     `}
   </style>
@@ -92,56 +93,99 @@ export default function App() {
   const styles = {
     container: {
       width: "80mm",
+      height: "120mm",
       margin: "0 auto",
-      padding: "5px",
-      fontFamily: "Lexend, 'Noto Sans Telugu', sans-serif",
-      fontSize: "12px",
-      lineHeight: 1.25,
-      color: "#000",
+      padding: "4mm",
+      fontFamily: "'Roboto', 'Noto Sans Telugu', sans-serif",
+      fontSize: "10px",
+      lineHeight: 1.2,
+      color: "#333",
       backgroundColor: "#fff",
-      // We removed minHeight here because CSS handles it
+      boxSizing: "border-box",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      overflow: "hidden", // Ensure content doesn't spill out visually in fixed mode
     },
     header: {
-      textAlign: "center",
-      marginBottom: "6px",
-      borderBottom: "1px dashed #000",
-      paddingBottom: "6px",
-    },
-    logo: { height: "50px", display: "block", margin: "0 auto 4px" },
-    companyName: { fontWeight: "700", fontSize: "12px", margin: "2px 0" },
-    companyTag: { fontSize: "9px", fontStyle: "italic", margin: "2px 0" },
-    teluguTitle: {
-      fontFamily: "'Noto Sans Telugu', Lexend, sans-serif",
-      textAlign: "center",
-      fontSize: "12px",
-      fontWeight: "700",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderBottom: "2px solid #2c3e50",
+      paddingBottom: "4px",
       marginBottom: "4px",
     },
-    infoRow: { marginBottom: "4px" },
-    h2: {
-      fontSize: "12px",
-      fontWeight: "700",
-      margin: "6px 0 4px 0",
-      borderBottom: "1px solid #000",
-      paddingBottom: "2px",
+    logoSection: {
+      display: "flex",
+      alignItems: "center",
+      gap: "6px",
     },
-    treatmentItem: {
-      margin: "4px 0",
-      padding: "3px",
-      backgroundColor: "#f5f5f5",
-      border: "1px solid #ddd",
-      fontSize: "12px",
+    logo: { height: "32px", width: "auto" },
+    brandName: {
+      fontSize: "14px",
+      fontWeight: "800",
+      color: "#2c3e50",
+      textTransform: "uppercase",
+      letterSpacing: "0.5px",
+    },
+    headerRight: {
+      textAlign: "right",
+      fontSize: "8px",
+      color: "#555",
+    },
+    sectionTitle: {
+      fontSize: "10px",
+      fontWeight: "700",
+      color: "#2c3e50",
+      borderBottom: "1px solid #eee",
+      marginTop: "4px",
+      marginBottom: "2px",
+      paddingBottom: "1px",
+      textTransform: "uppercase",
+    },
+    gridTwo: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: "4px",
+      marginBottom: "4px",
+    },
+    infoItem: {
+      fontSize: "9px",
+    },
+    label: {
+      fontWeight: "600",
+      color: "#7f8c8d",
+      marginRight: "3px",
+    },
+    teluguText: {
+      fontFamily: "'Noto Sans Telugu', sans-serif",
+      fontSize: "10px",
+    },
+    table: {
+      width: "100%",
+      borderCollapse: "collapse",
+      marginTop: "4px",
+      fontSize: "9px",
+    },
+    th: {
+      textAlign: "left",
+      borderBottom: "1px solid #333",
+      padding: "2px",
+      fontWeight: "700",
+      color: "#2c3e50",
+    },
+    td: {
+      borderBottom: "1px solid #eee",
+      padding: "3px 2px",
+      verticalAlign: "top",
     },
     footer: {
       textAlign: "center",
-      borderTop: "1px dashed #000",
-      fontSize: "8.5px",
-      marginTop: "6px",
+      borderTop: "1px dashed #ccc",
       paddingTop: "4px",
-    },
-    telugu: {
-      fontFamily: "'Noto Sans Telugu', Lexend ",
-      fontSize: "12px",
+      marginTop: "auto", // Push to bottom
+      fontSize: "8px",
+      color: "#7f8c8d",
     },
   };
 
@@ -149,89 +193,88 @@ export default function App() {
     <>
       <PrintStyles />
       <div ref={pdfRef} id="receipt-container" style={styles.container}>
+        {/* Header */}
         <div style={styles.header}>
-          <img
-            alt="CropSync Logo"
-            src="https://kiosk.cropsync.in/logo_v.jpeg"
-            style={styles.logo}
-          />
-          <div style={styles.companyName}>Crop Sync</div>
-          <div style={styles.companyTag}>Smart Agricultural Solutions</div>
-          <div style={{ fontSize: "9px" }}>
-            www.cropsync.in | Tel: +91- 91828 67605
+          <div style={styles.logoSection}>
+            <img
+              alt="Logo"
+              src="https://kiosk.cropsync.in/logo_v.jpeg"
+              style={styles.logo}
+            />
+            <div>
+              <div style={styles.brandName}>Crop Sync</div>
+              <div style={{ fontSize: "7px", color: "#7f8c8d" }}>Smart Agriculture</div>
+            </div>
+          </div>
+          <div style={styles.headerRight}>
+            <div>{dateIST}</div>
+            <div>ID: {receipt_id.slice(-6)}</div>
           </div>
         </div>
 
-        <div style={styles.teluguTitle}>
-          {problem_name_te || problem_name_en}
-        </div>
-
-        <div style={styles.infoRow}>
-          <strong>Category:</strong> {category}
-        </div>
-        <div style={styles.infoRow}>
-          <strong>Stage:</strong> {stage}
-        </div>
-
-        {symptoms_te && (
-          <>
-            <div style={styles.h2}>Symptoms</div>
-            <div style={styles.telugu}>
-              {symptoms_te.split("\n").map((s, i) => (
-                <div key={i}>{s}</div>
-              ))}
+        {/* Main Content Area - Flex Grow to fill space */}
+        <div style={{ flex: 1 }}>
+          {/* Problem & Details */}
+          <div style={{ marginBottom: "6px" }}>
+            <div style={{ ...styles.teluguText, fontSize: "12px", fontWeight: "700", color: "#e74c3c", marginBottom: "2px" }}>
+              {problem_name_te || problem_name_en}
             </div>
-          </>
-        )}
-
-        {notes_te && (
-          <>
-            <div style={styles.h2}>Advisory</div>
-            <div style={styles.telugu}>
-              {notes_te.split("\n").map((s, i) => (
-                <div key={i}>{s}</div>
-              ))}
+            <div style={styles.gridTwo}>
+              <div style={styles.infoItem}><span style={styles.label}>Category:</span>{category}</div>
+              <div style={styles.infoItem}><span style={styles.label}>Stage:</span>{stage}</div>
             </div>
-          </>
-        )}
+          </div>
 
-        {components?.length > 0 && (
-          <>
-            <div style={styles.h2}>Treatment</div>
-            {components.map((c, i) => (
-              <div key={i} style={styles.treatmentItem}>
-                <div style={{ fontWeight: "700" }}>{c.component_type || "-"}</div>
-                <div>
-                  <strong>Name:</strong>{" "}
-                  <span style={styles.telugu}>{c.component_name_te || "-"}</span>
+          {/* Symptoms & Advisory (Compact) */}
+          {(symptoms_te || notes_te) && (
+            <div style={{ marginBottom: "6px", backgroundColor: "#f9f9f9", padding: "4px", borderRadius: "4px" }}>
+              {symptoms_te && (
+                <div style={{ marginBottom: "2px" }}>
+                  <span style={styles.label}>Symptoms:</span>
+                  <span style={styles.teluguText}>{symptoms_te.replace(/\n/g, ", ")}</span>
                 </div>
-                {c.dose_te && (
-                  <div>
-                    <strong>Dose:</strong>{" "}
-                    <span style={styles.telugu}>{c.dose_te}</span>
-                  </div>
-                )}
-                {c.application_method_te && (
-                  <div>
-                    <strong>Method:</strong>{" "}
-                    <span style={styles.telugu}>{c.application_method_te}</span>
-                  </div>
-                )}
-                {c.notes_te && (
-                  <div>
-                    <strong>Note:</strong>{" "}
-                    <span style={styles.telugu}>{c.notes_te}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </>
-        )}
+              )}
+              {notes_te && (
+                <div>
+                  <span style={styles.label}>Note:</span>
+                  <span style={styles.teluguText}>{notes_te.replace(/\n/g, ", ")}</span>
+                </div>
+              )}
+            </div>
+          )}
 
+          {/* Treatment Table */}
+          {components?.length > 0 && (
+            <div>
+              <div style={styles.sectionTitle}>Recommended Treatment</div>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={{ ...styles.th, width: "25%" }}>Type</th>
+                    <th style={{ ...styles.th, width: "35%" }}>Name</th>
+                    <th style={{ ...styles.th, width: "20%" }}>Dose</th>
+                    <th style={{ ...styles.th, width: "20%" }}>Method</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {components.map((c, i) => (
+                    <tr key={i}>
+                      <td style={styles.td}>{c.component_type}</td>
+                      <td style={{ ...styles.td, ...styles.teluguText, fontWeight: "600" }}>{c.component_name_te}</td>
+                      <td style={{ ...styles.td, ...styles.teluguText }}>{c.dose_te}</td>
+                      <td style={{ ...styles.td, ...styles.teluguText }}>{c.application_method_te}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
         <div style={styles.footer}>
-          <div>Receipt ID: {receipt_id}</div>
-          <div>Date: {dateIST} IST</div>
-          <div>Thank You for Using CropSync Kiosk</div>
+          <div style={{ fontWeight: "700", marginBottom: "2px" }}>Thank You for Using CropSync Kiosk</div>
+          <div>www.cropsync.in | +91-91828 67605</div>
         </div>
       </div>
     </>
