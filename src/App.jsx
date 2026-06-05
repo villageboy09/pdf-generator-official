@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from "react";
 
-// --- UPDATED PRINT STYLES FOR THERMAL PRINTERS ---
+// --- RESTORED PRINT STYLES ---
 const PrintStyles = () => (
   <style type="text/css" media="print">
     {`
-      /* 1. Remove the 'size' attribute so the browser defers to the thermal printer's driver (80mm Roll) */
+      /* 1. Set the physical paper size back to a fixed dimension to fix Chrome's preview.
+         We increased the height from 120mm to 180mm to make room for the new ads. */
       @page {
-        margin: 0;
+        size: 80mm 180mm;
+        margin: 0mm;
       }
 
-      /* 2. Lock the html/body to 80mm width */
+      /* 2. Reset html/body */
       html, body {
         width: 80mm !important;
+        height: 180mm !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: white;
@@ -27,17 +30,17 @@ const PrintStyles = () => (
         visibility: visible;
       }
 
-      /* 5. Absolute positioning forces it to the top-left of whatever paper size is selected */
+      /* 5. Restore your original fixed positioning */
       #receipt-container {
-        position: absolute; 
+        position: fixed; 
         left: 0;
         top: 0;
         width: 80mm !important;
-        min-height: 100%;
-        height: auto !important; 
+        height: 180mm !important; 
         margin: 0 !important;
         padding: 4mm !important;
         box-sizing: border-box;
+        overflow: hidden; 
       }
     `}
   </style>
@@ -91,19 +94,19 @@ export default function App() {
   const styles = {
     container: {
       width: "80mm",
-      minHeight: "120mm",
-      height: "auto",
+      height: "180mm", // Matched to the new @page height
       margin: "0 auto",
       padding: "4mm",
       fontFamily: "'Roboto', 'Noto Sans Telugu', sans-serif",
       fontSize: "10px",
       lineHeight: 1.2,
-      color: "#000", // Enforce high contrast for thermal
+      color: "#000",
       backgroundColor: "#fff",
       boxSizing: "border-box",
       display: "flex",
       flexDirection: "column",
-      overflow: "visible", 
+      justifyContent: "space-between", // Pushes footer to the bottom naturally
+      overflow: "hidden", 
     },
     header: {
       display: "flex",
@@ -175,7 +178,7 @@ export default function App() {
       textAlign: "center",
       borderTop: "1px dashed #000",
       paddingTop: "6px",
-      marginTop: "8px", 
+      marginTop: "auto", // Keeps it anchored at the bottom
       fontSize: "8px",
       color: "#333",
     },
@@ -185,7 +188,7 @@ export default function App() {
       paddingTop: "6px"
     },
     adCard: {
-      border: "1px solid #000", // Crisp border for thermal printer
+      border: "1px solid #000", 
       borderRadius: "4px",
       padding: "5px",
       marginBottom: "6px"
@@ -259,7 +262,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Symptoms & Advisory (Compact) */}
+          {/* Symptoms & Advisory */}
           {(symptoms_te || notes_te) && (
             <div style={{ marginBottom: "6px", border: "1px solid #eee", padding: "4px", borderRadius: "2px" }}>
               {symptoms_te && (
