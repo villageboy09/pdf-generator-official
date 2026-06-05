@@ -1,19 +1,17 @@
 import React, { useEffect, useRef } from "react";
 
-// --- UPDATED PRINT STYLES FOR DYNAMIC HEIGHT ---
+// --- UPDATED PRINT STYLES FOR THERMAL PRINTERS ---
 const PrintStyles = () => (
   <style type="text/css" media="print">
     {`
-      /* 1. Auto height for paper size allows continuous roll printing */
+      /* 1. Remove the 'size' attribute so the browser defers to the thermal printer's driver (80mm Roll) */
       @page {
-        size: 80mm auto;
-        margin: 0mm;
+        margin: 0;
       }
 
-      /* 2. Reset html/body to allow dynamic height usage */
+      /* 2. Lock the html/body to 80mm width */
       html, body {
         width: 80mm !important;
-        height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
         background-color: white;
@@ -22,26 +20,24 @@ const PrintStyles = () => (
       /* 3. Hide EVERYTHING in the app initially */
       body * {
         visibility: hidden;
-        height: 0; 
       }
 
-      /* 4. Make the Receipt Container Visible and Positioned relatively */
+      /* 4. Make the Receipt Container Visible */
       #receipt-container, #receipt-container * {
         visibility: visible;
-        height: auto; 
       }
 
+      /* 5. Absolute positioning forces it to the top-left of whatever paper size is selected */
       #receipt-container {
-        position: relative; 
+        position: absolute; 
         left: 0;
         top: 0;
         width: 80mm !important;
-        min-height: 120mm !important; 
+        min-height: 100%;
         height: auto !important; 
         margin: 0 !important;
         padding: 4mm !important;
         box-sizing: border-box;
-        overflow: visible; 
       }
     `}
   </style>
