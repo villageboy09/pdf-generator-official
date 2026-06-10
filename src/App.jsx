@@ -220,6 +220,29 @@ export default function App() {
       justifyContent: "space-between",
       alignItems: "baseline"
     },
+    adGuideContainer: {
+      marginTop: "6px",
+      borderTop: "1px dotted #ccc",
+      paddingTop: "4px",
+    },
+    adGuideTitle: {
+      fontSize: "8px",
+      fontWeight: "800",
+      textTransform: "uppercase",
+      color: "#000",
+      marginBottom: "3px",
+    },
+    adGuideList: {
+      margin: 0,
+      paddingLeft: "12px", 
+      fontSize: "8px",
+      lineHeight: 1.3,
+      color: "#333",
+    },
+    adGuideLabel: {
+      fontWeight: "800",
+      color: "#000",
+    },
     adBrandLine: {
       textAlign: "center",
       fontSize: "7px",
@@ -335,8 +358,29 @@ export default function App() {
                     </div>
                   </div>
 
+                  {/* Dynamic Usage Guide & Benefits */}
+                  {(ad.dosage_per_acre || ad.replacement_period || ad.installation_guide || ad.product_benefits) && (
+                    <div style={styles.adGuideContainer}>
+                      <div style={styles.adGuideTitle}>Installation & Usage Guide</div>
+                      <ul style={styles.adGuideList}>
+                        {ad.dosage_per_acre && (
+                          <li><span style={styles.adGuideLabel}>Dosage:</span> {ad.dosage_per_acre}</li>
+                        )}
+                        {ad.replacement_period && (
+                          <li><span style={styles.adGuideLabel}>Maintenance:</span> {ad.replacement_period}</li>
+                        )}
+                        {ad.installation_guide && (
+                          <li><span style={styles.adGuideLabel}>Installation:</span> {ad.installation_guide}</li>
+                        )}
+                        {ad.product_benefits && (
+                          <li><span style={styles.adGuideLabel}>Benefits:</span> {ad.product_benefits}</li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+
                   {ad.display_message && (
-                    <div style={{ fontSize: "9px", fontWeight: "700", textAlign: "center", marginTop: "2px", borderTop: "1px solid #eee", paddingTop: "2px" }}>
+                    <div style={{ fontSize: "9px", fontWeight: "700", textAlign: "center", marginTop: "4px", borderTop: "1px solid #eee", paddingTop: "2px" }}>
                       {ad.display_message}
                     </div>
                   )}
