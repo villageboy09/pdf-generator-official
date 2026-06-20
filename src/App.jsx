@@ -386,7 +386,7 @@ export default function App() {
                   )}
                   
                   <div style={styles.adBrandLine}>
-                    Powered by Agri Phero Solutionz
+                    Powered by {ad.advertiser_name ? ad.advertiser_name : "Agri Phero Solutionz"}
                   </div>
                 </div>
               ))}
