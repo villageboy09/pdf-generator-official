@@ -125,6 +125,13 @@ function Receipt({ data }) {
         )}
 
         {advertisements.map((ad, index) => {
+          const productName = display(
+            ad.product_name ||
+            ad.product_name_en ||
+            ad.display_title ||
+            (ad.product_id ? `Product #${ad.product_id}` : 'Recommended Product')
+          );
+          const adTitle = display(ad.display_title || productName);
           const guideItems = [
             ad.dosage_per_acre && ['Dosage:', ad.dosage_per_acre],
             ad.replacement_period && ['Maintenance:', ad.replacement_period],
@@ -134,20 +141,20 @@ function Receipt({ data }) {
 
           return (
             <section className="ad" key={`${ad.product_id || 'ad'}-${index}`}>
-              {ad.display_title && <div className="ad-header telugu">{display(ad.display_title)}</div>}
+              <div className="ad-header telugu">{adTitle}</div>
               <div className="ad-row">
                 {ad.image_url_1 && (
                   <img
                     className="ad-image"
                     src={ad.image_url_1}
-                    alt={display(ad.product_name)}
+                    alt={productName}
                     onError={(event) => { event.currentTarget.style.display = 'none'; }}
                   />
                 )}
                 <div className="ad-main">
                   <div className="ad-title-row">
-                    <span>{display(ad.product_name)}</span>
-                    <span>{ad.price ? `₹${display(ad.price)}` : ''}</span>
+                    <span>{productName}</span>
+                    <span>{ad.price !== null && ad.price !== undefined && ad.price !== '' ? `₹${display(ad.price)}` : ''}</span>
                   </div>
                   {ad.product_description && (
                     <div className="ad-description telugu">{display(ad.product_description)}</div>
