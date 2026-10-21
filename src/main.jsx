@@ -13,29 +13,29 @@ const css = `
   #receipt { width: 80mm; min-height: 180mm; padding: 4mm; display: flex; flex-direction: column; background: #fff; }
   .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 4px; margin-bottom: 5px; }
   .logo { height: 30px; width: auto; object-fit: contain; }
-  .header-right { text-align: right; font-size: 7px; color: #444; }
+  .header-right { text-align: right; font-size: 8px; color: #444; }
   .title { font-family: "Noto Sans Telugu", Lexend, sans-serif; font-size: 12px; font-weight: 800; margin-bottom: 3px; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 5px; }
   .label { font-weight: 800; color: #333; margin-right: 3px; }
   .box { border: 1px solid #eee; border-radius: 2px; padding: 4px; margin-bottom: 5px; }
   .telugu { font-family: "Noto Sans Telugu", Lexend, sans-serif; }
-  .section-title { font-size: 9px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 2px; margin: 5px 0 3px; }
-  table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 7px; }
+  .section-title { font-size: 10px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 2px; margin: 5px 0 3px; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9px; }
   th { background: #f4f4f4; font-weight: 800; text-align: left; }
-  th, td { border: 1px solid #d8d8d8; padding: 2px; vertical-align: top; overflow-wrap: anywhere; }
+  th, td { border: 1px solid #d8d8d8; padding: 3px 2px; vertical-align: top; overflow-wrap: anywhere; }
   .ad { border: 1px solid #d8d8d8; border-radius: 2px; padding: 4px; margin-top: 5px; }
   .ad-header { font-size: 9px; font-weight: 800; border-bottom: 1px solid #eee; padding-bottom: 2px; margin-bottom: 3px; }
   .ad-row { display: flex; gap: 5px; align-items: flex-start; }
   .ad-image { width: 25px; height: 25px; object-fit: contain; border: 1px solid #eee; }
   .ad-main { flex: 1; min-width: 0; }
   .ad-title-row { display: flex; justify-content: space-between; gap: 3px; font-size: 9px; font-weight: 800; }
-  .ad-description { font-size: 7px; line-height: 1.3; margin-top: 2px; }
-  .guide { border-top: 1px dotted #ccc; padding-top: 3px; margin-top: 4px; font-size: 7px; }
-  .guide-title { font-size: 8px; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
+  .ad-description { font-size: 8.5px; line-height: 1.3; margin-top: 2px; }
+  .guide { border-top: 1px dotted #ccc; padding-top: 3px; margin-top: 4px; font-size: 8.5px; }
+  .guide-title { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
   .guide ul { margin: 0; padding-left: 12px; }
   .ad-message { text-align: center; font-size: 8px; font-weight: 700; border-top: 1px solid #eee; padding-top: 2px; margin-top: 4px; }
   .brand { text-align: center; font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: .3px; margin-top: 4px; }
-  .footer { text-align: center; border-top: 1px dashed #111; padding-top: 5px; margin-top: auto; font-size: 7px; color: #444; }
+  .footer { text-align: center; border-top: 1px dashed #111; padding-top: 5px; margin-top: auto; font-size: 8px; color: #444; }
   .footer strong { display: block; color: #111; margin-bottom: 2px; }
   .status { width: 80mm; min-height: 180mm; padding: 10mm 5mm; font-family: Lexend, sans-serif; font-size: 12px; }
   .error { color: #a00; }
