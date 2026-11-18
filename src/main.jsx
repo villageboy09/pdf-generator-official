@@ -109,9 +109,6 @@ function Receipt({ data }) {
                     <td>{display(component.component_type)}</td>
                     <td className="telugu">
                       <strong>{display(component.component_name_te || component.component_name_en)}</strong>
-                      {component.alt_component_name_te && (
-                        <><br />{display(component.alt_component_name_te)}</>
-                      )}
                     </td>
                     <td className="telugu">
                       {display(component.dose_te || component.dose_en)}
