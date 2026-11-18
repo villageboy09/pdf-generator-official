@@ -10,7 +10,7 @@ const css = `
   * { box-sizing: border-box; }
   html, body, #root { width: 80mm; min-height: 180mm; margin: 0; padding: 0; background: #fff; }
   body { font-size: 13px; line-height: 1.25; }
-  #receipt { width: 80mm; min-height: 180mm; padding: 4mm; display: flex; flex-direction: column; background: #fff; }
+  #receipt { width: 80mm; min-height: 180mm; padding: 2mm 1mm; display: flex; flex-direction: column; background: #fff; }
   .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 4px; margin-bottom: 5px; }
   .logo { height: 30px; width: auto; object-fit: contain; }
   .header-right { text-align: right; font-size: 11px; color: #000; }
@@ -22,7 +22,9 @@ const css = `
   .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 2px; margin: 5px 0 3px; }
   table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
   th { background: #fff; font-weight: 800; text-align: left; }
-  th, td { border: 1px solid #000; padding: 3px 2px; vertical-align: top; overflow-wrap: anywhere; }
+  th, td { border: 1px solid #000; padding: 3px 2px; vertical-align: top; overflow-wrap: break-word; word-break: normal; }
+  .note { border: 2px solid #000; padding: 4px; margin-top: 5px; font-size: 11.5px; font-weight: 700; text-align: center; line-height: 1.35; }
+  .note .en { display: block; margin-top: 2px; font-weight: 600; }
   .ad { border: 1px solid #000; border-radius: 2px; padding: 4px; margin-top: 5px; }
   .ad-header { font-size: 11px; font-weight: 800; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 3px; }
   .ad-row { display: flex; gap: 5px; align-items: flex-start; }
@@ -95,10 +97,10 @@ function Receipt({ data }) {
             <table>
               <thead>
                 <tr>
-                  <th style={{ width: '20%' }}>Type</th>
-                  <th style={{ width: '30%' }}>Name</th>
-                  <th style={{ width: '20%' }}>Dose</th>
-                  <th style={{ width: '30%' }}>Method</th>
+                  <th style={{ width: '22%' }}>Type</th>
+                  <th style={{ width: '28%' }}>Name</th>
+                  <th style={{ width: '22%' }}>Dose</th>
+                  <th style={{ width: '28%' }}>Method</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,6 +123,10 @@ function Receipt({ data }) {
                 ))}
               </tbody>
             </table>
+            <div className="note telugu">
+              గమనిక: ఏవైనా రసాయనాలు కొనుగోలు చేసే ముందు మీ స్థానిక వ్యవసాయ అధికారిని సంప్రదించండి.
+              <span className="en">Note: Consult your local Agriculture Officer before purchasing any chemicals.</span>
+            </div>
           </>
         )}
 
