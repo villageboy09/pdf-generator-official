@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+// Standalone receipt styles prevent application CSS from affecting printing.
 
 const RECEIPT_API = 'https://kiosk.cropsync.in/get_receipt_payload.php';
+
+const CONTACT = { website: 'www.cropsync.in', phone: '+91 92475 41741', email: 'info@cropsync.in' };
 
 const css = `
   @page { size: 80mm 180mm; margin: 0; }
   :root { color: #111; background: #fff; font-family: Lexend, "Noto Sans Telugu", sans-serif; }
   * { box-sizing: border-box; }
-  html, body, #root { width: 80mm; min-height: 180mm; margin: 0; padding: 0; background: #fff; }
+  html, body, #root { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; background: #fff; }
   body { font-size: 13px; line-height: 1.25; }
-  #receipt { width: 80mm; min-height: 180mm; padding: 2mm 1mm; display: flex; flex-direction: column; background: #fff; }
+  #receipt { width: 72mm; max-width: 100%; margin: 0 auto; padding: 2mm 0; display: flex; flex-direction: column; background: #fff; }
+  #receipt > * { width: 100%; min-width: 0; }
   .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 4px; margin-bottom: 5px; }
   .logo { height: 30px; width: auto; object-fit: contain; }
   .header-right { text-align: right; font-size: 11px; color: #000; }
@@ -37,12 +40,17 @@ const css = `
   .guide ul { margin: 0; padding-left: 12px; }
   .ad-message { text-align: center; font-size: 11px; font-weight: 700; border-top: 1px solid #000; padding-top: 2px; margin-top: 4px; }
   .brand { text-align: center; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .3px; margin-top: 4px; }
-  .footer { text-align: center; border-top: 1px dashed #111; padding-top: 5px; margin-top: auto; font-size: 11px; color: #000; }
+  .footer { text-align: center; border-top: 1px dashed #111; padding-top: 5px; margin-top: 8px; font-size: 11px; color: #000; }
   .footer strong { display: block; color: #111; margin-bottom: 2px; }
   .status { width: 80mm; min-height: 180mm; padding: 10mm 5mm; font-family: Lexend, sans-serif; font-size: 12px; }
   .error { color: #a00; }
-  @media screen { body { margin: 0 auto; } #receipt { min-height: 180mm; } }
-  @media print { .screen-only { display: none !important; } }
+  @media screen { #root { width: 80mm; max-width: 100%; margin: 0 auto; } }
+  @media print {
+    html, body, #root { width: 100% !important; min-width: 0 !important; max-width: none !important; margin: 0 !important; padding: 0 !important; display: block !important; transform: none !important; }
+    #receipt { width: 72mm !important; max-width: 100% !important; margin: 0 auto !important; padding: 2mm 0 !important; }
+    .screen-only { display: none !important; }
+    tr, .header, .footer { break-inside: avoid; }
+  }
 `;
 
 function asArray(value) {
@@ -189,7 +197,7 @@ function Receipt({ data }) {
 
       <footer className="footer">
         <strong>Thank You for Using CropSync Kiosk</strong>
-        www.cropsync.in | +91-91828 67605
+        {[CONTACT.website, CONTACT.phone, CONTACT.email].filter(Boolean).join(' | ')}
       </footer>
     </article>
   );
